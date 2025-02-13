@@ -5,28 +5,40 @@ import { useState } from 'react';
 
 const GAME_MODES = [
   {
-    id: 'never_have_I_ever',
-    title: 'Never Have I Ever',
-    description: 'Classic drinking game of revelations and secrets. Take a sip if you have done it!',
-    emoji: '🤫'
+    id: 'starter',
+    title: 'Starter Pack',
+    description: 'Perfect for warming up! Basic drinking games and challenges.',
+    count: '415 cards',
+    emoji: '🎮'
   },
   {
-    id: 'truth_or_dare',
-    title: 'Truth or Dare',
-    description: 'Choose your fate: reveal a truth or complete a dare. Skip? Take a shot!',
-    emoji: '🎯'
+    id: 'spicy',
+    title: 'Spicy Edition',
+    description: 'Things are heating up! More daring challenges and revelations.',
+    count: '300 cards',
+    emoji: '🌶️'
   },
+  {
+    id: 'extreme',
+    title: 'Extreme Mode',
+    description: 'Not for the faint of heart! The wildest challenges await.',
+    count: '250 cards',
+    emoji: '🔥'
+  }
 ];
 
 export default function HomeScreen() {
   const selectGameMode = (modeId: string) => {
-    router.push(modeId as any);
+    router.push({
+      pathname: "/lobby",
+      params: { mode: modeId }
+    });
   };
 
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#CC7487', '#CC425F', '#CD002A']}
+        colors={['#8A2BE2', '#C71585', '#FF1493']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -56,6 +68,9 @@ export default function HomeScreen() {
                     <Text style={styles.modeDescription}>
                       {mode.description}
                     </Text>
+                    <Text style={styles.cardInfo}>
+                      {mode.count}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -82,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+
     alignItems: 'center',
     paddingTop: 80,
     paddingBottom: 20,
@@ -139,16 +155,22 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#CC7481',
+    backgroundColor: '#FF69B4',
     width: '100%',
     marginBottom: 20,
-    opacity: 0.7,
+    opacity: 0.3,
   },
   modeDescription: {
     color: 'white',
     fontSize: 18,
     lineHeight: 24,
     marginBottom: 20,
+  },
+  cardInfo: {
+    color: '#FF69B4',
+    fontSize: 16,
+    marginTop: 'auto',
+    opacity: 0.8,
   },
   disclaimer: {
     color: '#fff',
