@@ -20,7 +20,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ThemedView style={styles.container}>
-        <ThemedText type="title">🍻 Party Time! 🍻</ThemedText>
+        <ThemedText type="title">🍻 PreDrinks 🍻</ThemedText>
         
         <PlayerManager players={players} setPlayers={setPlayers} />
         

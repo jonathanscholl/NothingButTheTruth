@@ -99,49 +99,56 @@ export default function GameScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView 
-        contentContainerStyle={styles.scrollContainer}
-        bounces={false}
-      >
-        <ThemedView style={styles.container}>
-          <ThemedText type="title">🍻 Drinking Game 🍻</ThemedText>
-          
-          {currentChallenge ? (
-            <ThemedView 
-              style={styles.challengeContainer}
-              lightColor="#f0f0f0"
-              darkColor="#2A2A2A"
-            >
-              <ThemedText type="subtitle">
-                {currentChallenge}
-              </ThemedText>
-            </ThemedView>
-          ) : (
-            <ThemedView 
-              style={styles.challengeContainer}
-              lightColor="#f0f0f0"
-              darkColor="#2A2A2A"
-            >
-              <ThemedText type="default">
-                Press Start to begin! 🎮
-              </ThemedText>
-            </ThemedView>
-          )}
+      <ThemedView style={styles.mainContainer}>
+        <ThemedText type="title" style={styles.time}>14:41</ThemedText>
+        
+        <ScrollView 
+          contentContainerStyle={styles.scrollContainer}
+          bounces={false}
+          style={styles.scrollView}
+        >
+          <ThemedView style={styles.container}>
+            {currentChallenge ? (
+              <ThemedView 
+                style={styles.challengeContainer}
+                lightColor="#333"
+                darkColor="#333"
+              >
+                <ThemedText type="title" style={styles.neverText}>
+                  I have never
+                </ThemedText>
+                <ThemedText type="subtitle" style={styles.challengeText}>
+                  {currentChallenge}
+                </ThemedText>
+                
+                <ThemedText type="default" style={styles.packInfo}>
+                  Starter Pack
+                  <ThemedText type="default" style={styles.packCount}> 1 / 415</ThemedText>
+                </ThemedText>
+              </ThemedView>
+            ) : (
+              <ThemedView 
+                style={styles.challengeContainer}
+                lightColor="#333"
+                darkColor="#333"
+              >
+                <ThemedText type="subtitle" style={styles.startText}>
+                  Press Next to begin! 🎮
+                </ThemedText>
+              </ThemedView>
+            )}
 
-          <TouchableOpacity 
-            style={styles.button}
-            onPress={newChallenge}
-          >
-            <ThemedText type="defaultSemiBold" style={styles.buttonText}>
-              {currentChallenge ? 'Next Challenge!' : 'Start Game!'}
-            </ThemedText>
-          </TouchableOpacity>
-
-          <ThemedText type="default" style={styles.disclaimer}>
-            Please drink responsibly! 🌟
-          </ThemedText>
-        </ThemedView>
-      </ScrollView>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={newChallenge}
+            >
+              <ThemedText type="defaultSemiBold" style={styles.buttonText}>
+                Next
+              </ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+        </ScrollView>
+      </ThemedView>
     </SafeAreaView>
   );
 }
@@ -149,41 +156,75 @@ export default function GameScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: '#40E0D0', // Turquoise background
+  },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#40E0D0', // Turquoise background
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#40E0D0', // Turquoise background
+  },
+  time: {
+    position: 'absolute',
+    top: 60,
+    alignSelf: 'center',
+    zIndex: 1,
+    color: '#333',
+    fontSize: 32,
   },
   scrollContainer: {
     flexGrow: 1,
+    backgroundColor: '#40E0D0', // Turquoise background
   },
   container: {
     flex: 1,
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 60,
+    paddingTop: 120, // Add space for the timer
+    backgroundColor: '#40E0D0', // Turquoise background
   },
   challengeContainer: {
     padding: 25,
-    borderRadius: 15,
+    borderRadius: 25,
     width: '100%',
     marginVertical: 20,
-    minHeight: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    minHeight: 300,
+    justifyContent: 'flex-start',
+  },
+  neverText: {
+    color: 'white',
+    fontSize: 36,
+    marginBottom: 20,
+  },
+  challengeText: {
+    color: 'white',
+    fontSize: 28,
+    marginTop: 10,
+  },
+  startText: {
+    color: 'white',
+    alignSelf: 'center',
+  },
+  packInfo: {
+    position: 'absolute',
+    bottom: 20,
+    left: 25,
+    color: '#40E0D0',
+  },
+  packCount: {
+    color: '#666',
   },
   button: {
-    backgroundColor: '#2196F3',
-    padding: 20,
-    borderRadius: 12,
-    width: '100%',
-    alignItems: 'center',
+    backgroundColor: '#333',
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 25,
     marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -195,10 +236,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-  },
-  disclaimer: {
-    position: 'absolute',
-    bottom: 20,
-    color: '#666',
+    marginRight: 10,
   },
 });
