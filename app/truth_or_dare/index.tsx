@@ -30,7 +30,7 @@ const GAME_MODES = [
 export default function HomeScreen() {
   const selectGameMode = (modeId: string) => {
     router.push({
-      pathname: "/lobby",
+      pathname: "/party_mode",
       params: { mode: modeId }
     });
   };

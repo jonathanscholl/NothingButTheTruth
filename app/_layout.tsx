@@ -38,6 +38,10 @@ export default function RootLayout() {
           name="truth_or_dare/index" 
           options={{ headerShown: false }} 
         />
+        <Stack.Screen 
+          name="party_mode/index" 
+          options={{ headerShown: false }} 
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

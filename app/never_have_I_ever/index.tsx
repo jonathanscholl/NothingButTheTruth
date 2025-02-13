@@ -30,7 +30,7 @@ const GAME_MODES = [
 export default function HomeScreen() {
   const selectGameMode = (modeId: string) => {
     router.push({
-      pathname: "/lobby",
+      pathname: "/party_mode",
       params: { mode: modeId }
     });
   };
@@ -45,7 +45,7 @@ export default function HomeScreen() {
       >
         <View style={styles.mainContainer}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Game Modes</Text>
+            <Text style={styles.headerText}>Never have I ever</Text>
           </View>
           
           <ScrollView 

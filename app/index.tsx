@@ -16,6 +16,12 @@ const GAME_MODES = [
     description: 'Choose your fate: reveal a truth or complete a dare. Skip? Take a shot!',
     emoji: '🎯'
   },
+  {
+    id: 'party_mode',
+    title: 'Party mode',
+    description: 'Get your party started with a selection of fun and spicy challenges!',
+    emoji: '🎉'
+  },
 ];
 
 export default function HomeScreen() {
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#CC7481',
     width: '100%',
     marginBottom: 20,
-    opacity: 0.7,
+    opacity: 0.8,
   },
   modeDescription: {
     color: 'white',

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import PlayerManager from '@/components/PlayerManager';
 
 const CHALLENGE_TEMPLATES = [
   "{player} drinks! 🍻",
@@ -102,7 +103,7 @@ export default function GameScreen() {
           <TouchableOpacity style={styles.backButton}>
             <Text style={styles.backButtonText}>←</Text>
           </TouchableOpacity>
-          <Text style={styles.difficulty}>Starter Pack</Text>
+          <Text style={styles.difficulty}>Party Mode 🎉 </Text>
         </View>
         
         <ScrollView 
@@ -132,6 +133,7 @@ export default function GameScreen() {
               </View>
             ) : (
               <View style={styles.challengeContainer}>
+
                 <Text style={styles.startText}>
                   Press Next to begin! 🎮
                 </Text>
