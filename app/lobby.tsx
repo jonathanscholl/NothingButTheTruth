@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
 const CHALLENGE_TEMPLATES = [
@@ -98,144 +96,196 @@ export default function GameScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ThemedView style={styles.mainContainer}>
-        <ThemedText type="title" style={styles.time}>14:41</ThemedText>
+    <View style={styles.safeArea}>
+      <View style={styles.mainContainer}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.backButton}>
+            <Text style={styles.backButtonText}>←</Text>
+          </TouchableOpacity>
+          <Text style={styles.difficulty}>Starter Pack</Text>
+        </View>
         
         <ScrollView 
           contentContainerStyle={styles.scrollContainer}
           bounces={false}
           style={styles.scrollView}
         >
-          <ThemedView style={styles.container}>
+          <View style={styles.container}>
             {currentChallenge ? (
-              <ThemedView 
-                style={styles.challengeContainer}
-                lightColor="#333"
-                darkColor="#333"
-              >
-                <ThemedText type="title" style={styles.neverText}>
-                  I have never
-                </ThemedText>
-                <ThemedText type="subtitle" style={styles.challengeText}>
-                  {currentChallenge}
-                </ThemedText>
-                
-                <ThemedText type="default" style={styles.packInfo}>
-                  Starter Pack
-                  <ThemedText type="default" style={styles.packCount}> 1 / 415</ThemedText>
-                </ThemedText>
-              </ThemedView>
+              <View style={styles.challengeContainer}>
+                <View style={styles.cardContent}>
+                  <Text style={styles.neverText}>
+                    I have never
+                  </Text>
+                  <View style={styles.divider} />
+                  <Text style={styles.challengeText}>
+                    {currentChallenge}
+                  </Text>
+                  
+                  <View style={styles.packInfoContainer}>
+                    <Text style={styles.packInfo}>
+                      Starter Pack
+                      <Text style={styles.packCount}> 1 / 415</Text>
+                    </Text>
+                  </View>
+                </View>
+              </View>
             ) : (
-              <ThemedView 
-                style={styles.challengeContainer}
-                lightColor="#333"
-                darkColor="#333"
-              >
-                <ThemedText type="subtitle" style={styles.startText}>
+              <View style={styles.challengeContainer}>
+                <Text style={styles.startText}>
                   Press Next to begin! 🎮
-                </ThemedText>
-              </ThemedView>
+                </Text>
+              </View>
             )}
 
             <TouchableOpacity 
               style={styles.button}
               onPress={newChallenge}
             >
-              <ThemedText type="defaultSemiBold" style={styles.buttonText}>
+              <Text style={styles.buttonText}>
                 Next
-              </ThemedText>
+              </Text>
+              <Text style={styles.arrowIcon}>→</Text>
             </TouchableOpacity>
-          </ThemedView>
+          </View>
         </ScrollView>
-      </ThemedView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#40E0D0', // Turquoise background
+    backgroundColor: '#40E0D0',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#40E0D0', // Turquoise background
+    backgroundColor: '#40E0D0',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 60,
+    zIndex: 1,
+  },
+  backButton: {
+    padding: 10,
+    position: 'absolute',
+    left: 20,
+    paddingTop: 20
+  },
+  backButtonText: {
+    fontSize: 40,
+    color: '#333',
+  },
+
+  difficulty: {
+    color: '#333',
+    fontSize: 32,
+    fontWeight: '600',
+    paddingTop: 60
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#40E0D0', // Turquoise background
-  },
-  time: {
-    position: 'absolute',
-    top: 60,
-    alignSelf: 'center',
-    zIndex: 1,
-    color: '#333',
-    fontSize: 32,
+    backgroundColor: '#40E0D0',
   },
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor: '#40E0D0', // Turquoise background
+    backgroundColor: '#40E0D0',
   },
   container: {
     flex: 1,
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 120, // Add space for the timer
-    backgroundColor: '#40E0D0', // Turquoise background
   },
   challengeContainer: {
-    padding: 25,
+    padding: 30,
     borderRadius: 25,
     width: '100%',
-    marginVertical: 20,
-    minHeight: 300,
+    minHeight: 400,
     justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#333',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  cardContent: {
+    flex: 1,
+    width: '100%',
   },
   neverText: {
     color: 'white',
-    fontSize: 36,
+    fontSize: 42,
+    fontWeight: '700',
     marginBottom: 20,
+  },
+  divider: {
+    height: 2,
+    backgroundColor: '#40E0D0',
+    width: '100%',
+    marginBottom: 20,
+    opacity: 0.3,
   },
   challengeText: {
     color: 'white',
-    fontSize: 28,
+    fontSize: 32,
+    lineHeight: 42,
     marginTop: 10,
   },
   startText: {
     color: 'white',
     alignSelf: 'center',
   },
-  packInfo: {
+  packInfoContainer: {
     position: 'absolute',
-    bottom: 20,
-    left: 25,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  packInfo: {
     color: '#40E0D0',
+    fontSize: 16,
   },
   packCount: {
     color: '#666',
   },
   button: {
     backgroundColor: '#333',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 25,
-    marginTop: 20,
+    paddingVertical: 18,
+    paddingHorizontal: 45,
+    borderRadius: 30,
+    marginTop: 30,
     flexDirection: 'row',
     alignItems: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
   buttonText: {
     color: 'white',
-    marginRight: 10,
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  arrowIcon: {
+    color: 'white',
+    fontSize: 24,
+    marginLeft: 10,
   },
 });
