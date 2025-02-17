@@ -1,103 +1,27 @@
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
-import PlayerManager from '@/components/PlayerManager';
+import { StyleSheet, TouchableOpacity, ScrollView, View, Text } from 'react-native';
+import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const CHALLENGE_TEMPLATES = [
-  "{player} drinks! 🍻",
-  "{player} gives out 5 sips 🎯",
-  "{player} and {player2} must stare into each other's eyes. First to laugh drinks! 👀",
-  "Everyone drinks except {player} 🥂",
-  "{player} must share their most embarrassing dating story or drink twice! 😳",
-  "{player} must do their best seductive dance move or drink! 💃",
-  "Everyone votes who's most likely to {action}. That person drinks! 🗳️",
-  "{player} must call their most recent ex or take 3 shots! 📱",
-  "{player} must reveal their biggest secret or finish their drink! 🤫", 
-  "{player} and {player2} must swap phones for 2 minutes or both drink! 📱",
-  "{player} must do their best pickup line on {player2} or drink! 😘",
-  "Truth or Drink: {player} must answer a spicy question from the group! 🌶️",
-  "{player} must give {player2} a sensual massage for 30 seconds or take 2 shots! 💆‍♂️",
-  "{player} must sit on {player2}'s lap until their next turn or both drink! 🪑",
-  "7 Minutes in Heaven: {player} and {player2} must go in a closet or both finish their drinks! 👀",
-  "{player} must remove one article of clothing or take 2 shots! 👕",
-  "{player} must let {player2} post anything on their social media or drink! 📱",
-  "Body Shot Time! {player} must take a shot off of {player2} or both drink double! 🥃",
-  "{player} must show their most scandalous photo or finish their drink! 📸",
-  "{player} must recreate their best O-face or drink! 😩",
-  "{player} must demonstrate their best kissing technique on a fruit or drink! 🍑",
-  "Dirty Never Have I Ever: {player} starts! Losers drink! 🤫",
-  "{player} must give {player2} a lap dance or both drink! 💃",
-  "{player} must reveal their body count or finish two drinks! 🔢",
-  "{player} must describe their wildest fantasy or drink! 💭"
+const CHALLENGES = [
+  "Never have I ever sent a text to the wrong person 📱",
+  "Never have I ever fallen asleep in class 😴",
+  "Never have I ever pretended to be sick to skip work/school 🤒",
+  "Never have I ever eaten food that fell on the floor 😋",
+  "Never have I ever stalked someone on social media 👀",
+  "Never have I ever lied about my age 🎂",
+  "Never have I ever forgotten someone's name while talking to them 😅",
+  "Never have I ever sang karaoke in public 🎤",
+  "Never have I ever accidentally liked an old post while stalking 🙈",
+  "Never have I ever pulled an all-nighter 🌙"
 ];
 
-const ACTIONS = [
-  "have a secret crush on someone in this room",
-  "get caught skinny dipping",
-  "have a scandalous story they haven't told anyone",
-  "slide into a celebrity's DMs",
-  "have an OnlyFans account",
-  "get married in Vegas",
-  "date two people at once",
-  "have a wild one night stand story",
-  "send a risky text to the wrong person",
-  "get kicked out of a club",
-  "hook up with their best friend's ex",
-  "post something they seriously regret on social media"
-];
-
-export default function GameScreen() {
-  const { players: playersParam } = useLocalSearchParams<{ players: string }>();
-  const [players] = useState<string[]>(JSON.parse(playersParam || '[]'));
+export default function StarterScreen() {
   const [currentChallenge, setCurrentChallenge] = useState<string | null>(null);
   const [previousChallenges, setPreviousChallenges] = useState<string[]>([]);
-  const [currentPlayer, setCurrentPlayer] = useState<string | null>(null);
-
-  const getRandomPlayer = (exclude?: string) => {
-    const availablePlayers = exclude ? players.filter(p => p !== exclude) : players;
-    return availablePlayers[Math.floor(Math.random() * availablePlayers.length)];
-  };
-
-  const getRandomAction = () => {
-    return ACTIONS[Math.floor(Math.random() * ACTIONS.length)];
-  };
-
-  const formatChallenge = (template: string) => {
-    let challenge = template;
-    
-    if (challenge.includes("{player2}")) {
-      const player1 = getRandomPlayer();
-      const player2 = getRandomPlayer(player1);
-      challenge = challenge
-        .replace("{player}", player1)
-        .replace("{player2}", player2);
-    } else if (challenge.includes("{player}")) {
-      challenge = challenge.replace("{player}", getRandomPlayer());
-    }
-    
-    if (challenge.includes("{action}")) {
-      challenge = challenge.replace("{action}", getRandomAction());
-    }
-    
-    return challenge;
-  };
 
   const newChallenge = () => {
-    if (players.length === 0) {
-      setCurrentChallenge("Add some players to start the game! 👥");
-      setCurrentPlayer(null);
-      return;
-    }
-
-    const nextPlayer = getRandomPlayer();
-    setCurrentPlayer(nextPlayer);
-
-    const template = CHALLENGE_TEMPLATES[
-      Math.floor(Math.random() * CHALLENGE_TEMPLATES.length)
-    ];
-    
-    const challenge = formatChallenge(template);
+    const challenge = CHALLENGES[Math.floor(Math.random() * CHALLENGES.length)];
     setCurrentChallenge(challenge);
     setPreviousChallenges(prev => [...prev, challenge]);
   };
@@ -105,17 +29,17 @@ export default function GameScreen() {
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#007991', '#78ffd6']}
+        colors={['#ad5389', '#3c1053']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={styles.gradientContainer}
+        style={styles.gradient}
       >
         <View style={styles.mainContainer}>
           <View style={styles.header}>
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
               <Text style={styles.backButtonText}>←</Text>
             </TouchableOpacity>
-            <Text style={styles.difficulty}>Party Mode 🎉 </Text>
+            <Text style={styles.difficulty}>Starter Pack 🎮</Text>
           </View>
           
           <ScrollView 
@@ -128,7 +52,7 @@ export default function GameScreen() {
                 <View style={styles.challengeContainer}>
                   <View style={styles.cardContent}>
                     <Text style={styles.neverText}>
-                      {currentPlayer}
+                      Never have I ever...
                     </Text>
                     <View style={styles.divider} />
                     <Text style={styles.challengeText}>
@@ -172,7 +96,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
   },
-  gradientContainer: {
+  gradient: {
     flex: 1,
   },
   mainContainer: {
@@ -193,11 +117,10 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     fontSize: 40,
-    color: '#333',
+    color: '#fff',
   },
-
   difficulty: {
-    color: '#333',
+    color: '#fff',
     fontSize: 32,
     fontWeight: '600',
     paddingTop: 60
@@ -243,7 +166,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#40E0D0',
+    backgroundColor: '#FE96FF',
     width: '100%',
     marginBottom: 20,
     opacity: 0.3,
@@ -268,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   packInfo: {
-    color: '#40E0D0',
+    color: '#FE96FF',
     fontSize: 16,
   },
   packCount: {
@@ -301,4 +224,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
   },
-});
+}); 

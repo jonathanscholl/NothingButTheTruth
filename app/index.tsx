@@ -8,19 +8,22 @@ const GAME_MODES = [
     id: 'never_have_I_ever',
     title: 'Never Have I Ever',
     description: 'Classic drinking game of revelations and secrets. Take a sip if you have done it!',
-    emoji: '🤫'
+    emoji: '🤫',
+    dividerColor: '#FE96FF'  // Purple
   },
   {
     id: 'truth_or_dare',
     title: 'Truth or Dare',
     description: 'Choose your fate: reveal a truth or complete a dare. Skip? Take a shot!',
-    emoji: '🎯'
+    emoji: '🎯',
+    dividerColor: '#a8c0ff'  // Blue
   },
   {
-    id: 'party_mode',
+    id: 'players',
     title: 'Party mode',
     description: 'Get your party started with a selection of fun and spicy challenges!',
-    emoji: '🎉'
+    emoji: '🎉',
+    dividerColor: '#78ffd6'  // Turquoise
   },
 ];
 
@@ -32,7 +35,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#CC7487', '#CC425F', '#CD002A']}
+        colors={['#2c3e50', '#bdc3c7']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -58,7 +61,7 @@ export default function HomeScreen() {
                     <Text style={styles.modeTitle}>
                       {mode.title} {mode.emoji}
                     </Text>
-                    <View style={styles.divider} />
+                    <View style={[styles.divider, { backgroundColor: mode.dividerColor }]} />
                     <Text style={styles.modeDescription}>
                       {mode.description}
                     </Text>
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
   },
   modeTitle: {
     color: 'white',
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: '700',
     marginBottom: 20,
     textShadowColor: 'rgba(0, 0, 0, 0.2)',
@@ -145,7 +148,6 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#CC7481',
     width: '100%',
     marginBottom: 20,
     opacity: 0.8,

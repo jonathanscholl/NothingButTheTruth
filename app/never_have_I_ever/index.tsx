@@ -29,16 +29,13 @@ const GAME_MODES = [
 
 export default function HomeScreen() {
   const selectGameMode = (modeId: string) => {
-    router.push({
-      pathname: "/party_mode",
-      params: { mode: modeId }
-    });
+    router.push(`/never_have_I_ever/${modeId}` as any);
   };
 
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#8A2BE2', '#C71585', '#FF1493']}
+        colors={['#ad5389', '#3c1053']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -155,10 +152,10 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#FF69B4',
+    backgroundColor: '#FE96FF',
     width: '100%',
     marginBottom: 20,
-    opacity: 0.3,
+    opacity: 0.8,
   },
   modeDescription: {
     color: 'white',
@@ -167,7 +164,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cardInfo: {
-    color: '#FF69B4',
+    color: '#FE96FF',
     fontSize: 16,
     marginTop: 'auto',
     opacity: 0.8,

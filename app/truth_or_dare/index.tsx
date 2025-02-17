@@ -38,14 +38,14 @@ export default function HomeScreen() {
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#8A2BE2', '#C71585', '#FF1493']}
+        colors={['#3f2b96', '#a8c0ff']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
       >
         <View style={styles.mainContainer}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Game Modes</Text>
+            <Text style={styles.headerText}>Truth or Dare</Text>
           </View>
           
           <ScrollView 
@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#FF69B4',
+    backgroundColor: '#a8c0ff',
     width: '100%',
     marginBottom: 20,
-    opacity: 0.3,
+    opacity: 0.8,
   },
   modeDescription: {
     color: 'white',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cardInfo: {
-    color: '#FF69B4',
+    color: '#a8c0ff',
     fontSize: 16,
     marginTop: 'auto',
     opacity: 0.8,

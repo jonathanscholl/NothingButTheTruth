@@ -30,8 +30,21 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="players" options={{ headerShown: false }} />
         <Stack.Screen 
           name="never_have_I_ever/index" 
+          options={{ headerShown: false }} 
+        />
+         <Stack.Screen 
+          name="never_have_I_ever/starter" 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="never_have_I_ever/spicy" 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="never_have_I_ever/extreme" 
           options={{ headerShown: false }} 
         />
         <Stack.Screen 
