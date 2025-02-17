@@ -27,13 +27,10 @@ const GAME_MODES = [
   }
 ];
 
-export default function HomeScreen() {
-  const selectGameMode = (modeId: string) => {
-    router.push({
-      pathname: "/party_mode",
-      params: { mode: modeId }
-    });
-  };
+  export default function HomeScreen() {
+    const selectGameMode = (modeId: string) => {
+      router.push(`/never_have_I_ever/${modeId}` as any);
+    };
 
   return (
     <View style={styles.safeArea}>
