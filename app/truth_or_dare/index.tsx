@@ -29,7 +29,7 @@ const GAME_MODES = [
 
   export default function HomeScreen() {
     const selectGameMode = (modeId: string) => {
-      router.push(`/never_have_I_ever/${modeId}` as any);
+      router.push(`/truth_or_dare/${modeId}` as any);
     };
 
   return (

@@ -47,10 +47,22 @@ export default function RootLayout() {
           name="never_have_I_ever/extreme" 
           options={{ headerShown: false }} 
         />
-        <Stack.Screen 
-          name="truth_or_dare/index" 
-          options={{ headerShown: false }} 
-        />
+          <Stack.Screen 
+            name="truth_or_dare/index" 
+            options={{ headerShown: false }} 
+          />
+          <Stack.Screen 
+            name="truth_or_dare/starter" 
+            options={{ headerShown: false }} 
+          />
+          <Stack.Screen 
+            name="truth_or_dare/spicy" 
+            options={{ headerShown: false }} 
+          />
+          <Stack.Screen 
+            name="truth_or_dare/extreme" 
+            options={{ headerShown: false }} 
+            />
         <Stack.Screen 
           name="party_mode/index" 
           options={{ headerShown: false }} 
