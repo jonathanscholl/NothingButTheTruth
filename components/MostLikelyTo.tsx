@@ -75,7 +75,7 @@ function MostLikelyToGame({ challenges, title }: MostLikelyToGameProps) {
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#ad5389', '#3c1053']}
+        colors={['#eb7d34', '#cfae42']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -85,7 +85,7 @@ function MostLikelyToGame({ challenges, title }: MostLikelyToGameProps) {
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
               <Text style={styles.backButtonText}>←</Text>
             </TouchableOpacity>
-            <Text style={styles.difficulty}>{title} 🎮</Text>
+            {/* <Text style={styles.difficulty}>{title} 🎮</Text> */}
           </View>
           
           <ScrollView 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'absolute',
     left: 20,
-    paddingTop: 20
+    paddingTop: 80
   },
   backButtonText: {
     fontSize: 40,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     padding: 30,
     borderRadius: 25,
     width: '100%',
-    minHeight: 400,
+    minHeight: 500,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: '#333',
@@ -227,10 +227,10 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#FE96FF',
+    backgroundColor: '#eb7d34',
     width: '100%',
     marginBottom: 20,
-    opacity: 0.3,
+    opacity: 0.8,
   },
   challengeText: {
     color: 'white',
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   packInfo: {
-    color: '#FE96FF',
+    color: '#eb7d34',
     fontSize: 16,
   },
   packCount: {

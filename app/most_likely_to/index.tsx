@@ -35,7 +35,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#ad5389', '#3c1053']}
+        colors={['#eb7d34', '#cfae42']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
-    backgroundColor: '#FE96FF',
+    backgroundColor: '#eb7d34',
     width: '100%',
     marginBottom: 20,
     opacity: 0.8,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cardInfo: {
-    color: '#FE96FF',
+    color: '#eb7d34',
     fontSize: 16,
     marginTop: 'auto',
     opacity: 0.8,

@@ -85,7 +85,7 @@ function NeverHaveIEverGame({ challenges, title }: NeverHaveIEverGameProps) {
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
               <Text style={styles.backButtonText}>←</Text>
             </TouchableOpacity>
-            <Text style={styles.difficulty}>{title} 🎮</Text>
+            {/* <Text style={styles.difficulty}>{title} 🎮</Text> */}
           </View>
           
           <ScrollView 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'absolute',
     left: 20,
-    paddingTop: 20
+    paddingTop: 80
   },
   backButtonText: {
     fontSize: 40,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     padding: 30,
     borderRadius: 25,
     width: '100%',
-    minHeight: 400,
+    minHeight: 500,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: '#333',

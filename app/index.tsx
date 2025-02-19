@@ -23,7 +23,7 @@ const GAME_MODES = [
     title: 'Most likely to',
     description: 'Vote on the most likely person to do something! The person with the most votes has to drink',
     emoji: '🤔',
-    dividerColor: '#78ffd6'  // Turquoise
+    dividerColor: '#eb7d34'  // Turquoise
   },
   {
     id: 'players',
