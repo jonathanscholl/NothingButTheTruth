@@ -67,6 +67,22 @@ export default function RootLayout() {
           name="party_mode/index" 
           options={{ headerShown: false }} 
         />
+        <Stack.Screen 
+          name="most_likely_to/index" 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="most_likely_to/starter" 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="most_likely_to/spicy" 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="most_likely_to/extreme" 
+          options={{ headerShown: false }} 
+        />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

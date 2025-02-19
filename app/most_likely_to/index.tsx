@@ -5,51 +5,44 @@ import { useState } from 'react';
 
 const GAME_MODES = [
   {
-    id: 'never_have_I_ever',
-    title: 'Never Have I Ever',
-    description: 'Classic drinking game of revelations and secrets. Take a sip if you have done it!',
-    emoji: '🤫',
-    dividerColor: '#FE96FF'  // Purple
+    id: 'starter',
+    title: 'Starter Pack',
+    description: 'Perfect for warming up! Basic drinking games and challenges.',
+    count: '415 cards',
+    emoji: '🎮'
   },
   {
-    id: 'truth_or_dare',
-    title: 'Truth or Dare',
-    description: 'Choose your fate: reveal a truth or complete a dare. Skip? Take a shot!',
-    emoji: '🎯',
-    dividerColor: '#a8c0ff'  // Blue
+    id: 'spicy',
+    title: 'Spicy Edition',
+    description: 'Things are heating up! More daring challenges and revelations.',
+    count: '300 cards',
+    emoji: '🌶️'
   },
   {
-    id: 'most_likely_to',
-    title: 'Most likely to',
-    description: 'Vote on the most likely person to do something! The person with the most votes has to drink',
-    emoji: '🤔',
-    dividerColor: '#78ffd6'  // Turquoise
-  },
-  {
-    id: 'players',
-    title: 'Party mode',
-    description: 'Get your party started with a selection of fun and spicy challenges!',
-    emoji: '🎉',
-    dividerColor: '#78ffd6'  // Turquoise
-  },
+    id: 'extreme',
+    title: 'Extreme Mode',
+    description: 'Not for the faint of heart! The wildest challenges await.',
+    count: '250 cards',
+    emoji: '🔥'
+  }
 ];
 
 export default function HomeScreen() {
   const selectGameMode = (modeId: string) => {
-    router.push(modeId as any);
+    router.push(`/most_likely_to/${modeId}` as any);
   };
 
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#2c3e50', '#bdc3c7']}
+        colors={['#ad5389', '#3c1053']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
       >
         <View style={styles.mainContainer}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Game Modes</Text>
+          <View style={styles.header}> 
+            <Text style={styles.headerText}>Most likely to</Text>
           </View>
           
           <ScrollView 
@@ -68,9 +61,12 @@ export default function HomeScreen() {
                     <Text style={styles.modeTitle}>
                       {mode.title} {mode.emoji}
                     </Text>
-                    <View style={[styles.divider, { backgroundColor: mode.dividerColor }]} />
+                    <View style={styles.divider} />
                     <Text style={styles.modeDescription}>
                       {mode.description}
+                    </Text>
+                    <Text style={styles.cardInfo}>
+                      {mode.count}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -98,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+
     alignItems: 'center',
     paddingTop: 80,
     paddingBottom: 20,
@@ -146,7 +143,7 @@ const styles = StyleSheet.create({
   },
   modeTitle: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: '700',
     marginBottom: 20,
     textShadowColor: 'rgba(0, 0, 0, 0.2)',
@@ -155,6 +152,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 2,
+    backgroundColor: '#FE96FF',
     width: '100%',
     marginBottom: 20,
     opacity: 0.8,
@@ -164,6 +162,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 24,
     marginBottom: 20,
+  },
+  cardInfo: {
+    color: '#FE96FF',
+    fontSize: 16,
+    marginTop: 'auto',
+    opacity: 0.8,
   },
   disclaimer: {
     color: '#fff',
