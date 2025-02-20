@@ -72,9 +72,6 @@ export default function HomeScreen() {
                 </TouchableOpacity>
               ))}
 
-              <Text style={styles.disclaimer}>
-                Please drink responsibly! 🌟
-              </Text>
             </View>
           </ScrollView>
         </View>

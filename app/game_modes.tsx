@@ -48,9 +48,6 @@ export default function HomeScreen() {
         style={styles.gradient}
       >
         <View style={styles.mainContainer}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Game Modes</Text>
-          </View>
           
           <ScrollView 
             contentContainerStyle={styles.scrollContainer}
@@ -76,9 +73,6 @@ export default function HomeScreen() {
                 </TouchableOpacity>
               ))}
 
-              <Text style={styles.disclaimer}>
-                Please drink responsibly! 🌟
-              </Text>
             </View>
           </ScrollView>
         </View>
@@ -96,31 +90,18 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-  },
-  header: {
-    alignItems: 'center',
-    paddingTop: 80,
-    paddingBottom: 20,
-  },
-  headerText: {
-    fontSize: 42,
-    fontWeight: '700',
-    color: '#fff',
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    marginTop: 50,
   },
   scrollView: {
     flex: 1,
   },
   scrollContainer: {
     flexGrow: 1,
+    justifyContent: 'center',
   },
   container: {
-    flex: 1,
     padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
     gap: 20,
   },
   modeContainer: {
@@ -165,11 +146,5 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 20,
   },
-  disclaimer: {
-    color: '#fff',
-    fontSize: 16,
-    marginTop: 20,
-    textAlign: 'center',
-    opacity: 0.9,
-  },
+  
 });

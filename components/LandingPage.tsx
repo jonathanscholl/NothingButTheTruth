@@ -1,27 +1,34 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Font from 'expo-font';
 
 const { width } = Dimensions.get('window');
 
-interface NeverHaveIEverGameProps {
-  challenges: string[];
+interface LandingPageProps {
+  intro_sentences: string[];
   title: string;
 }
 
-function NeverHaveIEverGame({ challenges, title }: NeverHaveIEverGameProps) {
-  const [currentChallenge, setCurrentChallenge] = useState<string | null>(null);
-  const [previousChallenges, setPreviousChallenges] = useState<string[]>([]);
+function LandingPage({ intro_sentences, title }: LandingPageProps) {
+  const [currentSentence, setCurrentSentence] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [availableChallenges, setAvailableChallenges] = useState<string[]>([...challenges]);
+  const [fontLoaded, setFontLoaded] = useState(false);
   
   // Animation values
   const slideAnim = useRef(new Animated.Value(width)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    newChallenge();
+    async function loadFont() {
+      await Font.loadAsync({
+        'oswald': require('../assets/fonts/Oswald-Regular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+    nextSentence();
   }, []);
 
   const animateCard = () => {
@@ -45,32 +52,36 @@ function NeverHaveIEverGame({ challenges, title }: NeverHaveIEverGameProps) {
     ]).start();
   };
 
-  const newChallenge = () => {
-    if (availableChallenges.length === 0) {
-      setAvailableChallenges([...challenges]);
-      setCurrentIndex(0);
-      setPreviousChallenges([]);
-      return;
+  const nextSentence = () => {
+    if (currentIndex >= intro_sentences.length) {
+      router.push('/game_modes');
+    } else {
+      setCurrentSentence(intro_sentences[currentIndex]);
+      setCurrentIndex(prevIndex => prevIndex + 1);
     }
-
-    const randomIndex = Math.floor(Math.random() * availableChallenges.length);
-    const challenge = availableChallenges[randomIndex];
-    
-    const updatedChallenges = availableChallenges.filter((_, index) => index !== randomIndex);
-    setAvailableChallenges(updatedChallenges);
-    
-    setCurrentChallenge(challenge);
-    setPreviousChallenges(prev => [...prev, challenge]);
-    setCurrentIndex(previousChallenges.length + 1);
 
     animateCard();
-
-    if (updatedChallenges.length === 0) {
-      setTimeout(() => {
-        alert("You've completed all challenges! Starting over...");
-      }, 500);
-    }
   };
+
+  const renderBulletPoints = () => {
+    return (
+      <View style={styles.bulletPointContainer}>
+        {intro_sentences.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.bulletPoint,
+              index === currentIndex - 1 ? styles.activeBulletPoint : {}
+            ]}
+          />
+        ))}
+      </View>
+    );
+  };
+
+  if (!fontLoaded) {
+    return null; // or a loading indicator
+  }
 
   return (
     <View style={styles.safeArea}>
@@ -81,20 +92,14 @@ function NeverHaveIEverGame({ challenges, title }: NeverHaveIEverGameProps) {
         style={styles.gradient}
       >
         <View style={styles.mainContainer}>
-          <View style={styles.header}>
-            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-              <Text style={styles.backButtonText}>←</Text>
-            </TouchableOpacity>
-            {/* <Text style={styles.difficulty}>{title} 🎮</Text> */}
-          </View>
-          
           <ScrollView 
             contentContainerStyle={styles.scrollContainer}
             bounces={false}
             style={styles.scrollView}
           >
             <View style={styles.container}>
-              {currentChallenge ? (
+              {currentSentence ? (
+                <>
                 <Animated.View 
                   style={[
                     styles.challengeContainer,
@@ -105,22 +110,25 @@ function NeverHaveIEverGame({ challenges, title }: NeverHaveIEverGameProps) {
                   ]}
                 >
                   <View style={styles.cardContent}>
-                    <Text style={styles.neverText}>
-                      Never have I ever...
-                    </Text>
-                    <View style={styles.divider} />
                     <Text style={styles.challengeText}>
-                      {currentChallenge}
+                      {currentSentence}
                     </Text>
-                    
-                    <View style={styles.packInfoContainer}>
-                      <Text style={styles.packInfo}>
-                        {title}
-                        <Text style={styles.packCount}> {currentIndex} / {challenges.length}</Text>
-                      </Text>
-                    </View>
+                    <View style={styles.spacer} />
+                    <View style={styles.divider} />
+                    {renderBulletPoints()}
                   </View>
                 </Animated.View>
+
+                <TouchableOpacity 
+                  style={styles.button}
+                  onPress={nextSentence}
+                >
+                  <Text style={styles.buttonText}>
+                    Continue
+                  </Text> 
+                  <Text style={styles.arrowIcon}>→</Text>
+                </TouchableOpacity>
+                </>
               ) : (
                 <Animated.View 
                   style={[
@@ -135,16 +143,6 @@ function NeverHaveIEverGame({ challenges, title }: NeverHaveIEverGameProps) {
                   </Text>
                 </Animated.View>
               )}
-
-              <TouchableOpacity 
-                style={styles.button}
-                onPress={newChallenge}
-              >
-                <Text style={styles.buttonText}>
-                  Next
-                </Text>
-                <Text style={styles.arrowIcon}>→</Text>
-              </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
@@ -218,12 +216,26 @@ const styles = StyleSheet.create({
   cardContent: {
     flex: 1,
     width: '100%',
+    justifyContent: 'center',
+    paddingTop: 140,
   },
-  neverText: {
+  challengeText: {
+    fontFamily: 'oswald',
     color: 'white',
-    fontSize: 42,
-    fontWeight: '700',
-    marginBottom: 20,
+    fontSize: 32,
+    lineHeight: 42,
+    marginTop: 10,
+    flex: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10
+  },
+  startText: {
+    color: 'white',
+    alignSelf: 'center',
+  },
+  spacer: {
+    height: 20,
   },
   divider: {
     height: 2,
@@ -232,40 +244,33 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     opacity: 0.6,
   },
-  challengeText: {
-    color: 'white',
-    fontSize: 32,
-    lineHeight: 42,
-    marginTop: 10,
-  },
-  startText: {
-    color: 'white',
-    alignSelf: 'center',
-  },
-  packInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+  bulletPointContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 20,
   },
-  packInfo: {
-    color: '#FE96FF',
-    fontSize: 16,
+  bulletPoint: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#666',
+    marginHorizontal: 4,
   },
-  packCount: {
-    color: '#666',
+  activeBulletPoint: {
+    backgroundColor: 'white',
+    width: 10,
+    height: 10,
+    borderRadius: 5,
   },
   button: {
     backgroundColor: '#333',
     paddingVertical: 18,
     paddingHorizontal: 45,
     borderRadius: 30,
-    marginTop: 30,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -274,11 +279,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
+    marginTop: 50,
   },
   buttonText: {
+    fontFamily: 'oswald',
     color: 'white',
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: '600',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10
   },
   arrowIcon: {
     color: 'white',
@@ -287,4 +297,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NeverHaveIEverGame;
+export default LandingPage;

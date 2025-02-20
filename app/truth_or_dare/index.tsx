@@ -71,10 +71,6 @@ const GAME_MODES = [
                   </View>
                 </TouchableOpacity>
               ))}
-
-              <Text style={styles.disclaimer}>
-                Please drink responsibly! 🌟
-              </Text>
             </View>
           </ScrollView>
         </View>
