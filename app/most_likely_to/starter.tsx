@@ -1,0 +1,60 @@
+import MostLikelyToGame from '@/components/MostLikelyTo';
+
+const CHALLENGES = [
+  "become a millionaire before age 30",
+  "travel around the world solo",
+  "win a Nobel Prize",
+  "become a famous YouTuber",
+  "get married first",
+  "have the most kids",
+  "become a CEO",
+  "live to be 100 years old",
+  "forget their own birthday",
+  "lose their phone at least once a month",
+  "become a professional athlete",
+  "write a bestselling book",
+  "get lost following GPS directions",
+  "accidentally send a text to the wrong person",
+  "become a politician",
+  "start their own business",
+  "sleep through multiple alarms",
+  "adopt 5 pets",
+  "move to another country",
+  "become a social media influencer",
+  "win an Oscar",
+  "get arrested for something stupid",
+  "become a teacher",
+  "survive a zombie apocalypse",
+  "become a stand-up comedian",
+  "win the lottery and lose the ticket",
+  "appear on a reality TV show",
+  "invent something revolutionary",
+  "become a famous chef",
+  "join a circus",
+  "become a professional gamer",
+  "get a tattoo they regret",
+  "become a famous artist",
+  "start a viral trend",
+  "become a space tourist",
+  "win an Olympic medal",
+  "become a successful entrepreneur",
+  "live off the grid",
+  "become a famous musician",
+  "get banned from a public place",
+  "become a professional dancer",
+  "start a charity organization",
+  "become a famous fashion designer",
+  "accidentally send money to a scammer",
+  "become a successful lawyer",
+  "start a food fight",
+  "become a famous photographer",
+  "get stuck in an elevator",
+  "become a professional actor",
+  "end up on the news for something embarrassing"
+
+ 
+];
+
+export default function StarterScreen() {
+  return <MostLikelyToGame challenges={CHALLENGES} title="Starter Pack" />;
+} 

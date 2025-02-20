@@ -1,96 +1,142 @@
-import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import PlayerManager from '@/components/PlayerManager';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { IconSymbol } from '@/components/ui/IconSymbol';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function HomeScreen() {
-  const [players, setPlayers] = useState<string[]>([]);
-
-  const startGame = () => {
-    if (players.length >= 2) {
-      router.push({
-        pathname: "/lobby",
-        params: { players: JSON.stringify(players) }
-      });
-    }
-  };
-
+function AppLogo() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ThemedView style={styles.container}>
-        <ThemedText type="title">🍻 Party Time! 🍻</ThemedText>
-        
-        <PlayerManager players={players} setPlayers={setPlayers} />
-        
-        <ThemedView style={styles.buttonContainer}>
-          <TouchableOpacity 
-            style={[
-              styles.button, 
-              styles.gameButton,
-              players.length < 2 && styles.buttonDisabled
-            ]}
-            onPress={startGame}
-            disabled={players.length < 2}
-          >
-            <ThemedText type="defaultSemiBold" style={styles.buttonText}>
-              {players.length < 2 
-                ? `Add ${2 - players.length} more player${players.length === 1 ? '' : 's'}`
-                : 'Start Game 🎮'}
-            </ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
+    <View style={styles.logoContainer}>
+      <View style={styles.logoTextContainer}>
+        <Text style={styles.preText}>Pre</Text>
+        <Ionicons name="wine" size={45} color="white" style={styles.wineIcon} />
+        <Text style={styles.rinksText}>Drinks</Text>
+      </View>
+      <Text style={styles.tagline}>Party Games & Challenges</Text>
+    </View>
+  );
+}
 
-        <ThemedText type="default" style={styles.disclaimer}>
-          Please drink responsibly! 🌟
-        </ThemedText>
-      </ThemedView>
-    </SafeAreaView>
+export default function LandingScreen() {
+  return (
+    <LinearGradient
+    colors={['#007991', '#78ffd6']}
+      style={styles.gradient}
+    >
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <AppLogo />
+          
+          <TouchableOpacity 
+            style={styles.playButton}
+            onPress={() => router.push('/game_modes')}
+          >
+            <Text style={styles.playButtonText}>Play</Text>
+            <IconSymbol 
+              name="chevron.right" 
+              size={24} 
+              color="white" 
+              style={styles.arrowIcon}
+            />
+          </TouchableOpacity>
+
+          <Text style={styles.disclaimer}>
+            Please drink responsibly. Must be of legal drinking age.
+          </Text>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   safeArea: {
     flex: 1,
   },
   container: {
     flex: 1,
-    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingVertical: 50,
+    paddingHorizontal: 20,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: '40%',
+    transform: [{ translateY: -100 }],
+  },
+  logoTextContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonContainer: {
-    width: '100%',
-    marginTop: 20,
+  preText: {
+    color: 'white',
+    fontSize: 48,
+    fontWeight: '700',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
-  button: {
-    padding: 20,
-    borderRadius: 12,
-    width: '100%',
+  wineIcon: {
+    marginHorizontal: 10,
+    transform: [
+      { translateY: 2 },
+    ],
+  },
+  rinksText: {
+    color: 'white',
+    fontSize: 48,
+    fontWeight: '700',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+  },
+  tagline: {
+    marginTop: 8,
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.8)',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  playButton: {
+    backgroundColor: 'rgba(51, 51, 51, 0.95)',
+    paddingVertical: 18,
+    paddingHorizontal: 45,
+    borderRadius: 30,
+    flexDirection: 'row',
     alignItems: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
-  gameButton: {
-    backgroundColor: '#4ECDC4',
-  },
-  buttonDisabled: {
-    backgroundColor: '#ccc',
-    opacity: 0.8,
-  },
-  buttonText: {
+  playButtonText: {
     color: 'white',
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  arrowIcon: {
+    marginLeft: 10,
   },
   disclaimer: {
-    position: 'absolute',
-    bottom: 20,
-    color: '#666',
+    color: 'grey',
+    fontSize: 16,
+    textAlign: 'center',
+    maxWidth: '80%',
+    marginTop: 20,
   },
 });
