@@ -9,9 +9,9 @@ function AppLogo() {
   return (
     <View style={styles.logoContainer}>
       <View style={styles.logoTextContainer}>
-        <Text style={styles.preText}>pre</Text>
+        <Text style={styles.preText}>Pre</Text>
         <Ionicons name="wine" size={45} color="white" style={styles.wineIcon} />
-        <Text style={styles.rinksText}>rinks</Text>
+        <Text style={styles.rinksText}>Drinks</Text>
       </View>
       <Text style={styles.tagline}>Party Games & Challenges</Text>
     </View>
@@ -83,13 +83,11 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.2)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
-    marginRight: 10
   },
   wineIcon: {
-    marginHorizontal: -4,
+    marginHorizontal: 10,
     transform: [
       { translateY: 2 },
-      { rotate: '270deg' }
     ],
   },
   rinksText: {
