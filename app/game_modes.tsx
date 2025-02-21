@@ -12,19 +12,20 @@ const GAME_MODES = [
     dividerColor: '#FE96FF'  // Purple
   },
   {
-    id: 'truth_or_dare',
-    title: 'Truth or Dare',
-    description: 'Choose your fate: reveal a truth or complete a dare. Skip? Take a shot!',
-    emoji: '🎯',
-    dividerColor: '#a8c0ff'  // Blue
-  },
-  {
     id: 'most_likely_to',
     title: 'Most likely to',
     description: 'Vote on the most likely person to do something! The person with the most votes has to drink',
     emoji: '🤔',
     dividerColor: '#eb7d34'  // Turquoise
   },
+  {
+    id: 'truth_or_dare',
+    title: 'Truth or Dare',
+    description: 'Choose your fate: reveal a truth or complete a dare. Skip? Take a shot!',
+    emoji: '🎯',
+    dividerColor: '#a8c0ff'  // Blue
+  },
+
   // {
   //   id: 'players',
   //   title: 'Party mode',

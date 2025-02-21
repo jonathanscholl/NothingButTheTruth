@@ -2,32 +2,33 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import * as Font from 'expo-font';
+
+import IonIcons from '@expo/vector-icons/Ionicons';
+
 
 const { width } = Dimensions.get('window');
 
 interface LandingPageProps {
   intro_sentences: string[];
-  title: string;
+  icon: string[];
+  title: string[];
+
 }
 
-function LandingPage({ intro_sentences, title }: LandingPageProps) {
+function LandingPage({ intro_sentences,icon, title }: LandingPageProps) {
   const [currentSentence, setCurrentSentence] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fontLoaded, setFontLoaded] = useState(false);
+  const [currentIcon, setCurrentIcon] = useState<string | null>("");
+  const [currentTitle, setCurrentTitle] = useState<string | null>("");
+
   
   // Animation values
   const slideAnim = useRef(new Animated.Value(width)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    async function loadFont() {
-      await Font.loadAsync({
-        'oswald': require('../assets/fonts/Oswald-Regular.ttf'),
-      });
-      setFontLoaded(true);
-    }
-    loadFont();
+
+
     nextSentence();
   }, []);
 
@@ -57,6 +58,8 @@ function LandingPage({ intro_sentences, title }: LandingPageProps) {
       router.push('/game_modes');
     } else {
       setCurrentSentence(intro_sentences[currentIndex]);
+      setCurrentIcon(icon[currentIndex]);
+      setCurrentTitle(title[currentIndex]); 
       setCurrentIndex(prevIndex => prevIndex + 1);
     }
 
@@ -79,14 +82,11 @@ function LandingPage({ intro_sentences, title }: LandingPageProps) {
     );
   };
 
-  if (!fontLoaded) {
-    return null; // or a loading indicator
-  }
 
   return (
     <View style={styles.safeArea}>
       <LinearGradient
-        colors={['#ad5389', '#3c1053']}
+        colors={['#007991', '#78ffd6']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -109,14 +109,18 @@ function LandingPage({ intro_sentences, title }: LandingPageProps) {
                     }
                   ]}
                 >
-                  <View style={styles.cardContent}>
-                    <Text style={styles.challengeText}>
-                      {currentSentence}
-                    </Text>
-                    <View style={styles.spacer} />
-                    <View style={styles.divider} />
-                    {renderBulletPoints()}
-                  </View>
+            <View style={styles.cardContent}>
+  <View style={styles.contentWrapper}>
+    <Text style={styles.title}>{currentTitle}</Text>  
+    <IonIcons name={currentIcon as any} size={100} color="#78ffd6" style={{ paddingBottom: 20 }} />
+    <Text style={styles.challengeText}>{currentSentence}</Text>
+  </View>
+
+  <View style={styles.bottomWrapper}>
+    <View style={styles.divider} />
+    {renderBulletPoints()}
+  </View>
+</View>
                 </Animated.View>
 
                 <TouchableOpacity 
@@ -199,10 +203,10 @@ const styles = StyleSheet.create({
   challengeContainer: {
     padding: 30,
     borderRadius: 25,
-    width: '100%',
-    minHeight: 500,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    width: '90%', // Reduce width for better visibility
+    height: 500,
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
     backgroundColor: '#333',
     shadowColor: "#000",
     shadowOffset: {
@@ -213,33 +217,54 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
+  
   cardContent: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
-    paddingTop: 140,
+    alignItems: 'center', // Center text and icon
+    paddingHorizontal: 20,
   },
+  
+  // New container for text & icon
+  contentWrapper: {
+    flex: 1, 
+    justifyContent: 'center', // Centers text and icon
+    alignItems: 'center',
+    gap: 30
+  },
+  
+  bottomWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-end', // Pushes to bottom
+    marginTop: 'auto', // Ensures it stays at the bottom
+  },
+  
   challengeText: {
-    fontFamily: 'oswald',
     color: 'white',
-    fontSize: 32,
-    lineHeight: 42,
+    fontSize: 20, // Adjusted size for better readability
+    lineHeight: 38, // More spacing
+    textAlign: 'center', // Center the text
     marginTop: 10,
-    flex: 1,
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
+  },
+  
+  title: {
+    color: 'white',
+    fontSize: 26, // Make title more prominent
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 10, // Add space between title and icon
   },
   startText: {
     color: 'white',
     alignSelf: 'center',
   },
   spacer: {
-    height: 20,
+    height: 30,
   },
   divider: {
     height: 2,
-    backgroundColor: '#FE96FF',
+    backgroundColor: 'white',
     width: '100%',
     marginBottom: 20,
     opacity: 0.6,
@@ -258,7 +283,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   activeBulletPoint: {
-    backgroundColor: 'white',
+    backgroundColor: '#78ffd6',
     width: 10,
     height: 10,
     borderRadius: 5,
@@ -282,7 +307,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   buttonText: {
-    fontFamily: 'oswald',
+
     color: 'white',
     fontSize: 24,
     fontWeight: '600',
@@ -295,6 +320,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
   },
+
 });
 
 export default LandingPage;
