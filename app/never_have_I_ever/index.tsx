@@ -6,22 +6,22 @@ import { useState } from 'react';
 const GAME_MODES = [
   {
     id: 'starter',
-    title: 'Starter Pack',
-    description: 'Perfect for warming up! Basic drinking games and challenges.',
+    title: 'Warm up',
+    description: 'Perfect for warming up. Civilized Never Have I ever questions',
     count: '415 cards',
     emoji: '🎮'
   },
   {
     id: 'spicy',
-    title: 'Spicy Edition',
-    description: 'Things are heating up! More daring challenges and revelations.',
+    title: 'Getting heated',
+    description: 'Things are heating up! More daring revelations.',
     count: '300 cards',
     emoji: '🌶️'
   },
   {
     id: 'extreme',
-    title: 'Extreme Mode',
-    description: 'Not for the faint of heart! The wildest challenges await.',
+    title: 'Extremely hot',
+    description: 'Not for the faint of heart! The wildest questions await.',
     count: '250 cards',
     emoji: '🔥'
   }

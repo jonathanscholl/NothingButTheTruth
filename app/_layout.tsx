@@ -30,7 +30,6 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="players" options={{ headerShown: false }} />
         <Stack.Screen name="game_modes" options={{ headerShown: false , gestureEnabled: false }} />
         <Stack.Screen 
           name="never_have_I_ever/index" 

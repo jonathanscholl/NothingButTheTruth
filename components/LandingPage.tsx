@@ -1,43 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, ScrollView, View, Text, Animated, Dimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, Animated, Dimensions, Easing } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 
-import IonIcons from '@expo/vector-icons/Ionicons';
-
-
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 interface LandingPageProps {
   intro_sentences: string[];
   icon: string[];
   title: string[];
-
 }
 
-function LandingPage({ intro_sentences,icon, title }: LandingPageProps) {
-  const [currentSentence, setCurrentSentence] = useState<string | null>(null);
+function LandingPage({ intro_sentences, icon, title }: LandingPageProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentIcon, setCurrentIcon] = useState<string | null>("");
-  const [currentTitle, setCurrentTitle] = useState<string | null>("");
-
-  
-  // Animation values
   const slideAnim = useRef(new Animated.Value(width)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.9)).current;
+  const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-
-
-    nextSentence();
-  }, []);
+    animateCard();
+  }, [currentIndex]);
 
   const animateCard = () => {
-    // Reset position
     slideAnim.setValue(width);
     fadeAnim.setValue(0);
+    scaleAnim.setValue(0.9);
+    rotateAnim.setValue(0);
 
-    // Animate slide in from right
     Animated.parallel([
       Animated.spring(slideAnim, {
         toValue: 0,
@@ -50,21 +42,33 @@ function LandingPage({ intro_sentences,icon, title }: LandingPageProps) {
         duration: 300,
         useNativeDriver: true,
       }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        friction: 8,
+        tension: 40,
+        useNativeDriver: true,
+      }),
+      Animated.timing(rotateAnim, {
+        toValue: 1,
+        duration: 400,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
     ]).start();
   };
 
-  const nextSentence = () => {
-    if (currentIndex >= intro_sentences.length) {
+  const nextSlide = () => {
+    if (currentIndex >= intro_sentences.length - 1) {
       router.push('/game_modes');
     } else {
-      setCurrentSentence(intro_sentences[currentIndex]);
-      setCurrentIcon(icon[currentIndex]);
-      setCurrentTitle(title[currentIndex]); 
       setCurrentIndex(prevIndex => prevIndex + 1);
     }
-
-    animateCard();
   };
+
+  const spin = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   const renderBulletPoints = () => {
     return (
@@ -74,14 +78,13 @@ function LandingPage({ intro_sentences,icon, title }: LandingPageProps) {
             key={index}
             style={[
               styles.bulletPoint,
-              index === currentIndex - 1 ? styles.activeBulletPoint : {}
+              index === currentIndex ? styles.activeBulletPoint : {}
             ]}
           />
         ))}
       </View>
     );
   };
-
 
   return (
     <View style={styles.safeArea}>
@@ -92,68 +95,57 @@ function LandingPage({ intro_sentences,icon, title }: LandingPageProps) {
         style={styles.gradient}
       >
         <View style={styles.mainContainer}>
-          <ScrollView 
-            contentContainerStyle={styles.scrollContainer}
-            bounces={false}
-            style={styles.scrollView}
-          >
-            <View style={styles.container}>
-              {currentSentence ? (
-                <>
-                <Animated.View 
-                  style={[
-                    styles.challengeContainer,
-                    {
-                      transform: [{ translateX: slideAnim }],
-                      opacity: fadeAnim,
-                    }
-                  ]}
-                >
-            <View style={styles.cardContent}>
-  <View style={styles.contentWrapper}>
-    <Text style={styles.title}>{currentTitle}</Text>  
-    <IonIcons name={currentIcon as any} size={100} color="#78ffd6" style={{ paddingBottom: 20 }} />
-    <Text style={styles.challengeText}>{currentSentence}</Text>
-  </View>
+          <View style={styles.container}>
+            <Animated.View 
+              style={[
+                styles.challengeContainer,
+                {
+                  transform: [
+                    { translateX: slideAnim },
+                    { scale: scaleAnim },
+                    { rotate: spin }
+                  ],
+                  opacity: fadeAnim,
+                }
+              ]}
+            >
 
-  <View style={styles.bottomWrapper}>
-    <View style={styles.divider} />
-    {renderBulletPoints()}
-  </View>
-</View>
-                </Animated.View>
+{currentIndex === 0 && (
+  <LottieView
+    source={require('@/assets/animations/confetti.json')}
+    autoPlay
+    loop
+    style={styles.lottieBackground}
+  />
+)}
 
-                <TouchableOpacity 
-                  style={styles.button}
-                  onPress={nextSentence}
-                >
-                  <Text style={styles.buttonText}>
-                    Continue
-                  </Text> 
-                  <Text style={styles.arrowIcon}>→</Text>
-                </TouchableOpacity>
-                </>
-              ) : (
-                <Animated.View 
-                  style={[
-                    styles.challengeContainer,
-                    {
-                      opacity: fadeAnim,
-                    }
-                  ]}
-                >
-                  <Text style={styles.startText}>
-                    Press Next to begin! 🎮
-                  </Text>
-                </Animated.View>
-              )}
-            </View>
-          </ScrollView>
+              <View style={styles.cardContent}>
+                <Ionicons name={icon[currentIndex] as any} size={80} color="#78ffd6" style={styles.icon} />
+                <Text style={styles.title}>{title[currentIndex]}</Text>
+                <View style={styles.divider} />
+                <Text style={styles.challengeText}>
+                  {intro_sentences[currentIndex]}
+                </Text>
+              </View>
+            </Animated.View>
+
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={nextSlide}
+            >
+              <Text style={styles.buttonText}>
+                {currentIndex === intro_sentences.length - 1 ? 'Get Started' : 'Next'}
+              </Text>
+              <Text style={styles.arrowIcon}>→</Text>
+            </TouchableOpacity>
+
+            {renderBulletPoints()}
+          </View>
         </View>
       </LinearGradient>
     </View>
   );
-} 
+}
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -165,35 +157,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 60,
-    zIndex: 1,
-  },
-  backButton: {
-    padding: 10,
-    position: 'absolute',
-    left: 20,
-    paddingTop: 80
-  },
-  backButtonText: {
-    fontSize: 40,
-    color: '#fff',
-  },
-  difficulty: {
-    color: '#fff',
-    fontSize: 32,
-    fontWeight: '600',
-    paddingTop: 60
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContainer: {
-    flexGrow: 1,
-  },
   container: {
     flex: 1,
     padding: 20,
@@ -203,10 +166,10 @@ const styles = StyleSheet.create({
   challengeContainer: {
     padding: 30,
     borderRadius: 25,
-    width: '90%', // Reduce width for better visibility
-    height: 500,
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center', // Center horizontally
+    width: '100%',
+    minHeight: 500,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: '#333',
     shadowColor: "#000",
     shadowOffset: {
@@ -217,85 +180,58 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
-  
   cardContent: {
     flex: 1,
     width: '100%',
-    alignItems: 'center', // Center text and icon
-    paddingHorizontal: 20,
   },
-  
-  // New container for text & icon
-  contentWrapper: {
-    flex: 1, 
-    justifyContent: 'center', // Centers text and icon
-    alignItems: 'center',
-    gap: 30
+  icon: {
+    alignSelf: 'center',
+    marginBottom: 20,
   },
-  
-  bottomWrapper: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'flex-end', // Pushes to bottom
-    marginTop: 'auto', // Ensures it stays at the bottom
-  },
-  
-  challengeText: {
-    color: 'white',
-    fontSize: 20, // Adjusted size for better readability
-    lineHeight: 38, // More spacing
-    textAlign: 'center', // Center the text
-    marginTop: 10,
-  },
-  
   title: {
     color: 'white',
-    fontSize: 26, // Make title more prominent
+    fontSize: 32,
     fontWeight: '700',
+    marginBottom: 20,
     textAlign: 'center',
-    marginBottom: 10, // Add space between title and icon
-  },
-  startText: {
-    color: 'white',
-    alignSelf: 'center',
-  },
-  spacer: {
-    height: 30,
   },
   divider: {
     height: 2,
-    backgroundColor: 'white',
+    backgroundColor: '#78ffd6',
     width: '100%',
     marginBottom: 20,
-    opacity: 0.6,
+    opacity: 0.8,
   },
-  bulletPointContainer: {
+  challengeText: {
+    color: 'white',
+    fontSize: 24,
+    lineHeight: 32,
+    marginTop: 10,
+  },
+  packInfoContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
   },
-  bulletPoint: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#666',
-    marginHorizontal: 4,
+  packInfo: {
+    color: '#eb7d34',
+    fontSize: 16,
   },
-  activeBulletPoint: {
-    backgroundColor: '#78ffd6',
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+  packCount: {
+    color: '#666',
   },
   button: {
     backgroundColor: '#333',
     paddingVertical: 18,
     paddingHorizontal: 45,
     borderRadius: 30,
+    marginTop: 30,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -304,23 +240,40 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
-    marginTop: 50,
   },
   buttonText: {
-
     color: 'white',
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: '600',
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
   },
   arrowIcon: {
     color: 'white',
     fontSize: 24,
     marginLeft: 10,
   },
-
+  lottieBackground: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 0.6,
+  },
+  bulletPointContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  bulletPoint: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#333',
+    marginHorizontal: 4,
+  },
+  activeBulletPoint: {
+    backgroundColor: 'white',
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
 });
 
 export default LandingPage;
