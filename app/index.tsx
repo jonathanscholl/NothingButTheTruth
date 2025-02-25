@@ -5,7 +5,7 @@ const intro_sentences = [
   {
     sentence: "Welcome to the Game!",
     title: "Welcome",
-    icon: "flame-outline"
+    icon: "beer-outline"
   },
   {
     sentence: "Discover your friends darkest secrets",
