@@ -1,50 +1,37 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<h1>NothingButTheTruth</h1>
+<hr><p>Question based app</p>
+<ul>
+<li>Never have I ever</li>
+<li>Most likely to</li>
+<li>Truth or Dare</li>
+<li>more to come</li>
+</ul><h2>General Information</h2>
+<hr><ul>
+<li>Really discover each others secrets!</li>
+</ul><ul>
+<li>Play with friends or your partner</li>
+</ul><h2>Technologies Used</h2>
+<hr><ul>
+<li>JavaScript</li>
+</ul><ul>
+<li>React</li>
+</ul><ul>
+<li>Typescript</li>
+</ul><ul>
+<li>Expo</li>
+</ul><h2>Setup</h2>
+<hr><p>In your terminal:</p>
+<p>git clone https://github.com/jonathanscholl/NothingButTheTruth.git
+cd NothingButTheTruth</p>
+<p>code .</p>
+<p>npm expo install</p><h2>Usage</h2>
+<hr><p>npx expo start</p><h2>Project Status</h2>
+<hr><p>In Progress</p><h2>Features that can be added</h2>
+<hr><ul>
+<li>More game modes</li>
+</ul><ul>
+<li>Reward system for answering</li>
+</ul><ul>
+<li>In App-purchases/ ads</li>
+</ul><h2>Contact</h2>
+<hr><p><span style="margin-right: 30px;"></span><a href="https://github.com/jonathanscholl"><img target="_blank" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="width: 10%;"></a></p>
