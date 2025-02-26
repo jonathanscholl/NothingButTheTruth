@@ -19,8 +19,8 @@
 <li>Expo</li>
 </ul><h2>Setup</h2>
 <hr><p>In your terminal:</p>
-<p>git clone https://github.com/jonathanscholl/NothingButTheTruth.git
-cd NothingButTheTruth</p>
+<p>git clone https://github.com/jonathanscholl/NothingButTheTruth.git</p>
+<p>cd NothingButTheTruth</p>
 <p>code .</p>
 <p>npm expo install</p><h2>Usage</h2>
 <hr><p>npx expo start</p><h2>Project Status</h2>
