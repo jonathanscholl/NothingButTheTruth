@@ -12,11 +12,9 @@
 <li>Play with friends or your partner</li>
 </ul><h2>Technologies Used</h2>
 <hr><ul>
-<li>JavaScript</li>
-</ul><ul>
-<li>React</li>
-</ul><ul>
 <li>Typescript</li>
+</ul><ul>
+<li>React Native</li>
 </ul><ul>
 <li>Expo</li>
 </ul><h2>Setup</h2>
@@ -33,5 +31,5 @@ cd NothingButTheTruth</p>
 <li>Reward system for answering</li>
 </ul><ul>
 <li>In App-purchases/ ads</li>
-</ul><h2>Contact</h2>
+
 <hr><p><span style="margin-right: 30px;"></span><a href="https://github.com/jonathanscholl"><img target="_blank" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="width: 10%;"></a></p>
