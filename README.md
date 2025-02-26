@@ -31,5 +31,3 @@
 <li>Reward system for answering</li>
 </ul><ul>
 <li>In App-purchases/ ads</li>
-
-<hr><p><span style="margin-right: 30px;"></span><a href="https://github.com/jonathanscholl"><img target="_blank" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="width: 10%; background-color="white"></a></p>
