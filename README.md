@@ -1,4 +1,4 @@
-<h1>NothingButTheTruth</h1>
+<h1>Truthy</h1>
 <hr><p>Question based app</p>
 <ul>
 <li>Never have I ever</li>
