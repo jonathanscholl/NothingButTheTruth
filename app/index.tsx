@@ -13,7 +13,7 @@ const intro_sentences = [
     icon: "eye-outline"
   },
   {
-    sentence: "3 Different Game Modes, Over 1000 free Questions",
+    sentence: "3 Different Game Modes, Over 1000 free Questions to come",
     title: "Variety",
     icon: "game-controller-outline"
   }
